@@ -20,7 +20,8 @@ module.exports = (post) => {
     user: {
       id: post.user._id,
       name: post.user.name,
-      active:post.user.active
+      active: post.user.active,
+      profile_pic: post.user.profile_pic,
     },
   }
 }

@@ -25,6 +25,11 @@ const UserSchema = new Schema(
       default: '',
     },
 
+    cover_image: {
+      type: String,
+      default: '',
+    },
+
     bio: {
       type: String,
       default: '',
@@ -39,6 +44,14 @@ const UserSchema = new Schema(
       default: '',
     },
     jwtToken: [String],
+
+    location: {
+      type: Object,
+    },
+    education: {
+      type: String,
+      trim: true,
+    },
 
     friends: [{ type: Schema.Types.ObjectId, ref: 'User' }],
   },

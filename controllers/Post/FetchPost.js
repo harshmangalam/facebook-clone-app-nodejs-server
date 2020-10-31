@@ -6,7 +6,7 @@ exports.fetchPostById = async (req, res) => {
   try {
     const post = await Post.findById(req.params.postId)
       .populate('user')
-      .populate({ path: 'body.with', select: '_id name' })
+      .populate({ path: 'body.with'})
 
     let postData = FilterPostData(post)
 
@@ -21,7 +21,7 @@ exports.fetchAllPosts = async (req, res) => {
     const posts = await Post.find()
       .sort({ createdAt: -1 })
       .populate('user')
-      .populate({ path: 'body.with', select: '_id name' })
+      .populate({ path: 'body.with' })
 
     let postsData = posts.map((post) => FilterPostData(post))
     res.status(200).json({ posts: postsData })

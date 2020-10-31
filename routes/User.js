@@ -16,6 +16,9 @@ const {
   acceptFriendRequest,
   declineFriendRequest,
   cancelSendedFriendRequest,
+  updateProfilePic,
+  updateCoverPic,
+  updateProfile
 } = require('../controllers/User/UserAction')
 const authRequired = require('../middleware/AuthRequired')
 
@@ -47,5 +50,9 @@ router.get('/:user_id', authRequired, fetchUserById)
 
 router.post('/chat/:friendId/send', authRequired, sendMessageToFriend)
 router.get('/chat/:friendId/get_messages', authRequired, getFriendMessages)
+
+router.put('/profile_pic/update', authRequired, updateProfilePic)
+router.put('/cover_pic/update', authRequired, updateCoverPic)
+router.put('/update_profile/:input', authRequired, updateProfile)
 
 module.exports = router

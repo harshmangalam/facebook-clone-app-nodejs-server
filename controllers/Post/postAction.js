@@ -42,7 +42,8 @@ exports.createPost = async (req, res) => {
       .json({ message: 'post created successfully', post: postData })
 
     let dataToSend = {
-      req, key: "new-post", data: postData
+      req, key: "new-post", data: postData,
+      notif_body:`${post.user.name} has created new post`
     }
     await sendDataToFriends(dataToSend)
 

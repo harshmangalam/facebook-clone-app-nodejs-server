@@ -1,12 +1,13 @@
 const User = require('../../models/User')
+const Notification = require('../../models/Notification')
 const FriendRequest = require('../../models/FriendRequest')
-const filterUserData = require('../../utils/FilterUserData')
 const FilterUserData = require('../../utils/FilterUserData')
 
 exports.fetchUserById = async (req, res) => {
   try {
-    const user = await User.findById(req.params.user_id)
-    const userData = filterUserData(user)
+    const user = await User.findById(req.params.user_id).populate('friends')
+    const userData = FilterUserData(user)
+
     res.status(200).json({ user: userData })
   } catch (err) {
     console.log(err)
@@ -15,10 +16,13 @@ exports.fetchUserById = async (req, res) => {
 
 exports.fetchRecommandedUsers = async (req, res) => {
   try {
-    const users = await User.find().where('_id').ne(req.userId)
+    const users = await User.find()
+      .where('_id')
+      .ne(req.userId)
+      .populate('friends')
 
     const usersData = users.map((user) => {
-      return filterUserData(user)
+      return FilterUserData(user)
     })
     res.status(200).json({ users: usersData })
   } catch (err) {
@@ -28,11 +32,11 @@ exports.fetchRecommandedUsers = async (req, res) => {
 exports.me = async (req, res) => {
   try {
     const user = await User.findById(req.userId).populate('friends')
-    if(!user){
-      return res.status(404).json({error:"user not found"})
+    if (!user) {
+      return res.status(404).json({ error: 'user not found' })
     }
 
-    const userData = filterUserData(user)
+    const userData = FilterUserData(user)
 
     const friends = user.friends.map((friend) => {
       return {
@@ -41,8 +45,18 @@ exports.me = async (req, res) => {
     })
 
     userData.friends = friends
+    const notifications = await Notification.find({ user: req.userId }).sort({
+      createdAt: -1,
+    })
+    let notifData = notifications.map((notif) => {
+      return {
+        id: notif.id,
+        body: notif.body,
+        createdAt: notif.createdAt,
+      }
+    })
 
-    res.status(200).json({ user: userData })
+    res.status(200).json({ user: userData, notifications: notifData })
   } catch (err) {
     console.log(err)
   }
