@@ -48,12 +48,26 @@ exports.createComment = async (req, res) => {
 }
 
 exports.fetchComments = async (req, res) => {
+  let page = parseInt(req.query.page || 0)
+  let limit = 3
+
   try {
     const comments = await Comment.find({ post: req.params.postId })
       .sort({ createdAt: -1 })
+      .limit(limit)
+      .skip(page * limit)
       .populate('user', '_id name profile_pic')
     const filterComments = comments.map((comment) => FilterCommentData(comment))
-    res.status(200).json({ comments: filterComments })
+    const totalCount = await Comment.countDocuments({ post: req.params.postId })
+
+    const paginationData = {
+      currentPage: page,
+      totalPage: Math.ceil(totalCount / limit),
+      totalComments: totalCount,
+    }
+    res
+      .status(200)
+      .json({ comments: filterComments, pagination: paginationData })
   } catch (err) {
     console.log(err)
   }

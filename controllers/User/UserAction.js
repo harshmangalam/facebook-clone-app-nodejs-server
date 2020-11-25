@@ -213,7 +213,6 @@ exports.updateCoverPic = async (req, res) => {
 }
 
 exports.updateProfile = async (req, res) => {
-  
   try {
     const user = await User.findById(req.userId)
 
@@ -236,6 +235,15 @@ exports.updateProfile = async (req, res) => {
 
     await user.save()
     res.status(200).json({ message: 'Updated Successfully' })
+  } catch (err) {
+    console.log(err)
+  }
+}
+
+exports.clearNotification = async (req, res) => {
+  try {
+    await Notification.deleteMany({ user: req.userId })
+    res.status(200).json({ message: 'Notification Cleared Successfully' })
   } catch (err) {
     console.log(err)
   }
