@@ -5,15 +5,14 @@ const mongoose = require('mongoose')
 const app = express()
 const http = require('http')
 const server = http.createServer(app)
-const io = require("socket.io")(server)
-
+const io = require('socket.io')(server)
 
 const UserRoutes = require('./routes/User')
 const AuthRoutes = require('./routes/Auth')
 const PostRoutes = require('./routes/Post')
 
-const PORT = 5000
-const MONGODB_URI = 'mongodb://localhost:27017/trigo'
+const PORT = process.env.PORT || 5000
+const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://localhost:27017/trigo'
 
 app.use(cors())
 app.use(express.json())
@@ -28,10 +27,7 @@ app.use('/api/auth', AuthRoutes)
 app.use('/api/user', UserRoutes)
 app.use('/api/post', PostRoutes)
 
-
-
-require("./socket")(io)
-
+require('./socket')(io)
 
 mongoose
   .connect(MONGODB_URI, {
