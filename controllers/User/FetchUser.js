@@ -98,3 +98,17 @@ exports.fetchSendedFriendRequest = async (req, res) => {
     console.log(err)
   }
 }
+
+exports.searchUsers = async (req, res) => {
+  try {
+    const users = await User.find({
+      name: { $regex: req.query.name, $options: 'i' },
+    }).populate("friends")
+
+    const usersData = users.map((user) => FilterUserData(user))
+
+    res.status(200).json({ users: usersData })
+  } catch (err) {
+    console.log(err)
+  }
+}

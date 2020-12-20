@@ -5,6 +5,7 @@ const {
   fetchRecommandedUsers,
   fetchSendedFriendRequest,
   fetchIncommingFriendRequest,
+  searchUsers
 } = require('../controllers/User/FetchUser')
 
 const {
@@ -19,7 +20,7 @@ const {
   updateProfilePic,
   updateCoverPic,
   updateProfile,
-  clearNotification
+  clearNotification,
 } = require('../controllers/User/UserAction')
 const authRequired = require('../middleware/AuthRequired')
 
@@ -31,6 +32,8 @@ router.get(
   authRequired,
   fetchIncommingFriendRequest,
 )
+
+router.get('/search', searchUsers)
 router.get('/friend_request/:userId/send', authRequired, sendFriendRequest)
 router.get(
   '/friend_request/:requestId/accept',
