@@ -13,6 +13,7 @@ exports.fetchPostById = async (req, res) => {
     res.status(200).json({ post: postData })
   } catch (err) {
     console.log(err)
+    return res.status(500).json({error:"Something went wrong"})
   }
 }
 
@@ -39,5 +40,6 @@ exports.fetchAllPosts = async (req, res) => {
     res.status(200).json({ posts: postsData,pagination:paginationData })
   } catch (err) {
     console.log(err)
+    return res.status(500).json({error:"Something went wrong"})
   }
 }

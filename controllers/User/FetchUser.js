@@ -11,6 +11,7 @@ exports.fetchUserById = async (req, res) => {
     res.status(200).json({ user: userData })
   } catch (err) {
     console.log(err)
+    return res.status(500).json({error:"Something went wrong"})
   }
 }
 
@@ -27,6 +28,7 @@ exports.fetchRecommandedUsers = async (req, res) => {
     res.status(200).json({ users: usersData })
   } catch (err) {
     console.log(err)
+    return res.status(500).json({error:"Something went wrong"})
   }
 }
 exports.me = async (req, res) => {
@@ -59,6 +61,7 @@ exports.me = async (req, res) => {
     res.status(200).json({ user: userData, notifications: notifData })
   } catch (err) {
     console.log(err)
+    return res.status(500).json({error:"Something went wrong"})
   }
 }
 
@@ -78,6 +81,7 @@ exports.fetchIncommingFriendRequest = async (req, res) => {
     res.status(200).json({ friends: friendsData })
   } catch (err) {
     console.log(err)
+    return res.status(500).json({error:"Something went wrong"})
   }
 }
 
@@ -96,6 +100,7 @@ exports.fetchSendedFriendRequest = async (req, res) => {
     res.status(200).json({ friends: friendsData })
   } catch (err) {
     console.log(err)
+    return res.status(500).json({error:"Something went wrong"})
   }
 }
 
@@ -110,5 +115,6 @@ exports.searchUsers = async (req, res) => {
     res.status(200).json({ users: usersData })
   } catch (err) {
     console.log(err)
+    return res.status(500).json({error:"Something went wrong"})
   }
 }

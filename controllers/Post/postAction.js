@@ -49,6 +49,7 @@ exports.createPost = async (req, res) => {
 
   } catch (err) {
     console.log(err)
+    return res.status(500).json({error:"Something went wrong"})
   }
 }
 
@@ -82,6 +83,7 @@ exports.likeDislikePost = async (req, res) => {
     await sendDataToFriends({ req, key: "post-like-change", data: postData })
   } catch (err) {
     console.log(err)
+    return res.status(500).json({error:"Something went wrong"})
   }
 }
 

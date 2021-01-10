@@ -45,6 +45,7 @@ exports.sendMessageToFriend = async (req, res) => {
     }
   } catch (err) {
     console.log(err)
+    return res.status(500).json({error:"Something went wrong"})
   }
 }
 
@@ -73,5 +74,6 @@ exports.getFriendMessages = async (req, res) => {
     res.status(200).json({ data: messagesData })
   } catch (err) {
     console.log(err)
+    return res.status(500).json({error:"Something went wrong"})
   }
 }

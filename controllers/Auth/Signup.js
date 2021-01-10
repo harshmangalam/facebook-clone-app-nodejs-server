@@ -2,8 +2,7 @@ const User = require('../../models/User')
 const jwt = require('jsonwebtoken')
 const bcrypt = require('bcrypt')
 const ValidateEmail = require('../../utils/ValidateEmail')
-const JWT_SECRET = process.env.JWT_SECRET || 'itssecret'
-const JWT_EXP = process.env.JWT_EXP || '6h'
+const {JWT_SECRET,JWT_EXP} = require("../../config")
 
 module.exports = async (req, res) => {
   const { name, email, password } = req.body
@@ -57,5 +56,6 @@ module.exports = async (req, res) => {
     })
   } catch (err) {
     console.log(err)
+    return res.status(500).json({error:"Something went wrong"})
   }
 }

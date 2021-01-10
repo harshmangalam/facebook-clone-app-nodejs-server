@@ -44,6 +44,7 @@ exports.createComment = async (req, res) => {
     await sendDataToFriends({ req, key: 'post-comment', data: filterComment })
   } catch (err) {
     console.log(err)
+    return res.status(500).json({error:"Something went wrong"})
   }
 }
 
@@ -70,6 +71,7 @@ exports.fetchComments = async (req, res) => {
       .json({ comments: filterComments, pagination: paginationData })
   } catch (err) {
     console.log(err)
+    return res.status(500).json({error:"Something went wrong"})
   }
 }
 
@@ -113,5 +115,6 @@ exports.likeDislikeComment = async (req, res) => {
     })
   } catch (err) {
     console.log(err)
+    return res.status(500).json({error:"Something went wrong"})
   }
 }

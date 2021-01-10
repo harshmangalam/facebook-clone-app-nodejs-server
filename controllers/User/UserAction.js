@@ -66,6 +66,7 @@ exports.sendFriendRequest = async (req, res) => {
     }
   } catch (err) {
     console.log(err)
+    return res.status(500).json({error:"Something went wrong"})
   }
 }
 
@@ -113,6 +114,7 @@ exports.acceptFriendRequest = async (req, res) => {
     }
   } catch (err) {
     console.log(err)
+    return res.status(500).json({error:"Something went wrong"})
   }
 }
 
@@ -138,6 +140,7 @@ exports.cancelSendedFriendRequest = async (req, res) => {
     }
   } catch (err) {
     console.log(err)
+    return res.status(500).json({error:"Something went wrong"})
   }
 }
 
@@ -163,6 +166,7 @@ exports.declineFriendRequest = async (req, res) => {
     }
   } catch (err) {
     console.log(err)
+    return res.status(500).json({error:"Something went wrong"})
   }
 }
 
@@ -186,6 +190,7 @@ exports.updateProfilePic = async (req, res) => {
     res.status(200).json({ message: 'profile image updated', user: userData })
   } catch (err) {
     console.log(err)
+    return res.status(500).json({error:"Something went wrong"})
   }
 }
 
@@ -209,6 +214,7 @@ exports.updateCoverPic = async (req, res) => {
     res.status(200).json({ message: 'profile image updated', user: userData })
   } catch (err) {
     console.log(err)
+    return res.status(500).json({error:"Something went wrong"})
   }
 }
 
@@ -237,6 +243,7 @@ exports.updateProfile = async (req, res) => {
     res.status(200).json({ message: 'Updated Successfully' })
   } catch (err) {
     console.log(err)
+    return res.status(500).json({error:"Something went wrong"})
   }
 }
 
@@ -246,5 +253,6 @@ exports.clearNotification = async (req, res) => {
     res.status(200).json({ message: 'Notification Cleared Successfully' })
   } catch (err) {
     console.log(err)
+    return res.status(500).json({error:"Something went wrong"})
   }
 }
