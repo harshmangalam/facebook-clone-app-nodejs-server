@@ -12,7 +12,7 @@ const AuthRoutes = require('./routes/Auth')
 const PostRoutes = require('./routes/Post')
 
 const PORT = process.env.PORT || 5000
-const {MONGODB_URL} = require("./config")
+const {MONGODB_URI} = require("./config")
 
 app.use(cors())
 app.use(express.json())
@@ -30,7 +30,7 @@ app.use('/api/post', PostRoutes)
 require('./socket')(io)
 
 mongoose
-  .connect(MONGODB_URL, {
+  .connect(MONGODB_URI, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
     useCreateIndex: true,
